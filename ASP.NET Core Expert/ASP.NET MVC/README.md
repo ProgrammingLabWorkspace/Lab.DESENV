@@ -30,7 +30,44 @@ O Razor permite funcionalidades dinâmicas dentro do HTML.
 
 Atua como intermediária entre a Model e a View. É a controller qu response às ações do usuário, como cliques em botões em links;
 
+# Acompanhando as novidades
+
+https://github.com/dotnet/aspnetcore/issues
+
+# Estrutura projeto ASP NET Core MVC
+
+- Pasta Properties
+    - Contém o launchSettins.json, que permite configurar como rodar a aplicação;
+
+- Pasta wwwroot
+    - Contém os arquivos estáticos;
+
+- Pasta controllers
+    - Armazena as controllers das views
+
+- Pasta models
+    - Armazena os modelos usados na aplicação
+
+- Pasta views
+    - Armazena as páginas da aplicação;
+    - O nome da view sempre segue o nome da controller;
+        - Se temos HomeController, então dentro de views teremos a pasta Home;
+    - Pasta Shared
+        - Arquivos compartilhados;
+            - Partials;
+
+# Controllers
+
+- **Controller** é a classe base do MVC;
+
+## Rotas
+
+Estruturas de navegação personalizadas para que a URL da aplicação possua determinado padrão e atenda às necessidades de passagem de parâmetros.
+**A rota explica qual controller invocar, qual o método chamar e quais parâmetros passar.**
 
 
+
+
+    
 
 
