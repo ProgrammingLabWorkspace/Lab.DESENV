@@ -65,7 +65,47 @@ https://github.com/dotnet/aspnetcore/issues
 Estruturas de navegação personalizadas para que a URL da aplicação possua determinado padrão e atenda às necessidades de passagem de parâmetros.
 **A rota explica qual controller invocar, qual o método chamar e quais parâmetros passar.**
 
+# Verbos HTTP
 
+Mais usados no MVC:
+- GET;
+    - Pede (request) uma informação ao servidor;
+    - É feito através da URL
+
+- POST;
+    - Envia informações ao servidor (formulários);
+
+Contudo, temos também:
+
+- Put;
+    - Similar ao Post, mas é usado para atualizar informações existentes.
+- Delete
+    - Solicita exclusão de uma informação no servidor através da URL indicada.
+
+# Action Result
+
+No ASP.NET MVC um Action Result é o tipo de retorno da action da controller, é utilizada a interface IActionResult que pode retornar alguns tipos de resultados:
+
+- JsonResult;
+- ViewResult;
+- RedirectResult;
+- OkResult;
+- ...;
+
+
+# Attribute Routes
+
+Rota por atributos é uma maneira alternativa de trabalhar com rotas, são muito mais flexíveis e fáceis de personalizar.
+Estas rotas valem paenas a Controller que foi implementada.
+São data annotations
+
+```
+[Route("alunos/novo-aluno")]
+```
+
+```
+[HttpPost("alunos/novo-aluno")]
+```
 
 
     
