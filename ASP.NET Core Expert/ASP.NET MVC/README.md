@@ -205,3 +205,16 @@ No MVC um modelo pode ser um conjunto de informações de diversos objetos em um
 no servidor.
 
 **Só é possível usar uma model por View**
+
+
+# Criando base de dados
+
+https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli#prerequisites
+
+## Migration
+
+É uma boa prática criar a migration com a versão na frente do nome. Ex: v01_Aluno
+Há uma tabela que é gerada pelas migrations e que gerencia as versões das migrations.
+Deve-se versionar as migrations
+
+Uma forma de reverter uma migration é retornar para a versão anterior da migration que queremos defazer a ação.
