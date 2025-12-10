@@ -53,7 +53,7 @@ https://github.com/dotnet/aspnetcore/issues
     - O nome da view sempre segue o nome da controller;
         - Se temos HomeController, então dentro de views teremos a pasta Home;
     - Pasta Shared
-        - Arquivos compartilhados;
+        - Arquivos compartilhados e que podem ser acessados por qualquer controller.;
             - Partials;
 
 # Controllers
@@ -205,3 +205,261 @@ No MVC um modelo pode ser um conjunto de informações de diversos objetos em um
 no servidor.
 
 **Só é possível usar uma model por View**
+
+## DataAnnotations
+
+Recurso utilizado principalmente para especificar que tipo de dado e formato a propriedade da Model deve receber.
+Também é utilizada para definir tamanho, padrão e obrigatoriedade de preenchimento.
+Pode ser utilizada para mapeamento com o banco de dados.
+Pode ser utilizado para trabalhar como validação nos formulários nas Razor Views.
+
+### DataAnnotations para validação
+
+Exemplos:
+
+**Campo obrigatório**
+```
+[Required(ErrorMessage="O campo {0} é obrigatório")]
+public string Nome {get; set;}
+```
+
+**Validando email**
+```
+[EmailAddress(ErrorMessage="O campo {0} está em formato inválido")]
+public string Email {get; set;}
+```
+
+**Comparando campos**
+```
+[Compare("Email", ErrorMessage="Os e-maisl informados não são identicos")]
+public string EmailConfirmacao {get; set;}
+```
+
+**Intervalo**
+```
+[Range(1, 5, "O campo {0} deve estar entre {1} e {2})]
+public string Avaliacao {get; set;}
+```
+
+**Desconsiderando atributo para base de dados**
+```
+[NotMapped]
+public string EmailConfirmacao {get; set;}
+```
+
+
+## ModelState
+
+### TryValidateModel
+
+Método que valida se um modelo é valido ou não
+
+```
+if(TryValidateModel(aluno)) {
+    ...
+}
+```
+
+# Views e Razor
+
+## Razor Views
+
+No MVC, o motor de renderização das Views chama-se Razor. Logo nós temos as Razor Views que são arquivos HTML mesclados com recursos dao Razor.
+O mecanismos do Razor transforma as views em arquivos HTML Puros para a interpretação do Browser.
+As Views se tornam fortemente tipadas, permitindo trabalhar com modelos dentro das views.
+Razor trabalha no backend convertendo o código da view em HTML puro.
+
+## Tag Helpers
+
+Recursos do razor para geração de HTML
+O objetivo é escrever menos código, assim o Razor que interage com os recursos do ASP.NET é capaz de gerar o HTML necessário para a View.
+
+Tag Helpers se misturam muito bem com o HTML inclusive dentro de atributos.
+
+```
+    <form asp-action="Create">
+    </form>
+```
+
+O exemplo acima faz com que o form submeta os dados para a Action Create.
+
+Podemos fazer um comparativo com o Angular ou React, onde usamos tags customizadas.
+
+## Views de configuração
+
+Diretórios
+
+- Views
+    - Shared
+        - _Layout.cshtml
+    - Home
+    - _ViewImports.cshtml
+    - _ViewStart.cshtml
+
+### _ViewStart Page
+
+Define qual o layout padrão do site. A estrutura, por padrão, é nesse formato:
+
+```
+@ {
+    Layout = "_Layout";
+}
+```
+### _ViewImports Page
+
+Realiza a importação (using) de classes que vamos estar utilizando em nosso projeto.
+
+### _Layout.cshtml
+
+Localizada dentro de Shared (pasta compartilhada).
+O Layout pode ser alterado em cada View, bastando alterar o valor da variável Layout
+```
+    @{
+        Layout = "";
+    }
+```
+
+### Partial Views
+
+São pedações de uma View que podem ser reutilizados em N Views, proporcionando mais reaproveitamento de código.
+Similar aos componentes do React e Angular.
+
+**As partials views dependem do modelo implementado na View principal, gerando certa limitação em seu uso.**
+
+Podemos usa-la com AJAX para renderizar dinamicamente.
+
+Partial views possuem underline no nome, ex: `_Layout.cshtml`.
+
+**Partial views devem ficar em Shared.**
+
+Invocando uma partial:
+
+```
+<partial name="_MenuLayout">
+```
+
+Invocando de forma assincrona
+
+```
+@await Html.PartialAsync("_Menulayout")
+```
+
+### View Components
+
+Recurso do ASP.NET + Razor, e é um poderoso aliado para desenvolvimento de componentes independentes das views.
+Não possui a dependência de modelo como as partials possuem.
+
+Possui um processamento próprio (server-side) independente da controller.
+
+Permite componentizar recursos de páginas como uma carrinho de compras, paginação, barra de pesquisa, etc.
+
+Devem ficar dentro uma pasta chamada `ViewComponents`.
+
+Toda ViewComponent é uma classe que herda de ViewComponent:
+
+```
+public class SaudacaoAlunosViewComponent : ViewComponent {
+    public async Task<IViewComponentResult> InvokeAsync(){
+        ...
+        return View();
+    }
+}
+
+```
+O nome da classe deve ter ViewComponent
+O processamento ocorre sem a necessidade de uma controller.
+
+Devemos criar uma view. A view deve ficar dentro de Shared. A estrutura ficará:
+
+- Shared
+    - Components
+        - SaudacaoAluno
+            - Default.cshtml
+
+`Default.cshtml`:
+```
+@model Aluno
+
+<h1>Olá, @Model.Nome, seja bem-vindo(a)!</h1>
+```
+
+Invocando um ViewComponent:
+
+```
+@await Component.InvokeAsync("SaudacaoAluno")
+```
+
+Invocando no formato de tag
+
+Em `_ViewImports.cshtml`:
+
+```
+@addTagHelper "*, PrimeiraApp"
+```
+
+Depois será possível invocar a ViewComponent:
+
+```
+<vc:saudacao-aluno />
+```
+
+É possível utilizar parâmetros nas ViewComponent:
+
+```
+public class SaudacaoAlunosViewComponent : ViewComponent {
+    public async Task<IViewComponentResult> InvokeAsync(int idade){
+        ...
+        return View();
+    }
+}
+```
+
+```
+    <vc:saudacao-aluno idade="18" />
+```
+
+# Entity Framework
+
+- ORM (Object Relational Maping);
+- Mapeia o mundo relacional aos objetos do C#;
+- Depende do ADO.NET;
+
+
+## Configurando o EF na aplicação
+
+Precisamos instalar dois pacotes do EF:
+
+- Microsoft.EntityFrameworkCore; (a versão deve ser compatível com a versão do .NET);
+- Microsoft.EntityFrameworkCore.SqlServer; (a versão deve ser compatível com a versão do .NET);
+    - Se estiver usando outro gerenciador de banco de dados, deve-se procurar o pacote correspondente ao SGDB utilizado.
+
+Depois, deve-se criar a classe que irá estender de DbContext:
+
+```
+public classe AppDbContext : DbContext {
+    public AppDbContext(DbContextOptions<AppDbContext> options): base(options){}
+}
+```
+
+Deve-se configurar o uso do context na Program.cs. Ex usando SqlServer:
+
+```
+builder.Services.AddDbContext<AppDbContext>(o => {
+    o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+```
+
+Configurando uma entidade:
+
+```
+public classe AppDbContext : DbContext {
+    public AppDbContext(DbContextOptions<AppDbContext> options): base(options){}
+
+    public DbSet<Aluno> Alunos {get; set;}
+}
+```
+
+
+
+
+
