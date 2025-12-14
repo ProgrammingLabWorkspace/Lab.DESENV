@@ -24,12 +24,6 @@
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="@Model.EmailConfirmacao" class="control-label"></label>
-                <input asp-for="@Model.EmailConfirmacao" class="form-control" />
-                <span asp-validation-for="@Model.EmailConfirmacao" class="text-danger"></span>
-            </div>
-
             <label class="form-group form-check">
                 <label class="form-check-label">
                     <input asp-for="@Model.Ativo" class="form-check-input" /> @Html.DisplayNameFor(m => m.Ativo)

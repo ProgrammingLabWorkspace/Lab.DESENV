@@ -323,6 +323,19 @@ Essa configuração permite fazer isso:
 
 Ou seja, posso criar um bloco (section) com o nome que foi configurado (scripts) e carregar partials, scripts, etc.
 
+Demonstra os erros do modelo em cada campo
+```
+ <div asp-validation-summary="ModelOnly" class="text-danger">
+ </div>
+```
+
+Demonstra um resumo de todos os erros que ocorreram
+```
+ <div asp-validation-summary="All" class="text-danger">
+ </div>
+```
+
+
 ## Views de configuração
 
 Diretórios

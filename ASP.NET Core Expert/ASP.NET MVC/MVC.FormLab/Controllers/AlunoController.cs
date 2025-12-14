@@ -38,6 +38,11 @@ namespace MVC.FormLab.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Criar([Bind("Nome,DataNascimento,Email,EmailConfirmacao,Ativo")]Aluno aluno)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(aluno);
+            }
+
             DbContext.Alunos.Add(aluno);
             await DbContext.SaveChangesAsync();
 
@@ -59,8 +64,18 @@ namespace MVC.FormLab.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar([Bind("Id,Nome,DataNascimento,Email,EmailConfirmacao,Ativo")] Aluno aluno)
+        public async Task<IActionResult> Editar(int id, [Bind("Id,Nome,DataNascimento,Email,Ativo")] Aluno aluno)
         {
+            if (id != aluno.Id) return NotFound();
+
+            // Não queremos validar esse campo.
+            ModelState.Remove("EmailConfirmacao");
+
+            if (!ModelState.IsValid)
+            {
+                return View(aluno);
+            }
+
             DbContext.Alunos.Update(aluno);
             await DbContext.SaveChangesAsync();
 
