@@ -7,24 +7,35 @@
         <form asp-action="Editar">
             <input type="hidden" asp-for="@Model.Id" />
             <div class="form-group">
+                <label asp-for="@Model.Nome" class="control-label"></label>
                 <input asp-for="@Model.Nome" class="form-control" />
+                <span asp-validation-for="@Model.Nome" class="text-danger"></span>
             </div>
 
             <div class="form-group">
+                <label asp-for="@Model.DataNascimento" class="control-label"></label>
                 <input asp-for="@Model.DataNascimento" class="form-control" />
+                <span asp-validation-for="@Model.DataNascimento" class="text-danger"></span>
             </div>
 
             <div class="form-group">
+                <label asp-for="@Model.Email" class="control-label"></label>
                 <input asp-for="@Model.Email" class="form-control" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
+                <label asp-for="@Model.EmailConfirmacao" class="control-label"></label>
                 <input asp-for="@Model.EmailConfirmacao" class="form-control" />
+                <span asp-validation-for="@Model.EmailConfirmacao" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <input asp-for="@Model.Ativo" class="form-check-input" />
-            </div>
+            <label class="form-group form-check">
+                <label class="form-check-label">
+                    <input asp-for="@Model.Ativo" class="form-check-input" /> @Html.DisplayNameFor(m => m.Ativo)
+                </label>
+                <span asp-validation-for="@Model.Ativo" class="text-danger"></span>
+            </label>
 
             <input type="submit" value="Editar" class="btn btn-info" />
         </form>

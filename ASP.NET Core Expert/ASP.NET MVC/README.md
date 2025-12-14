@@ -306,6 +306,23 @@ Passando parâmetros de rotas via link (tag a)
 ```
 O que vem depois do "asp-route-" é o nome do parâmetro.
 
+Dentro de "_Layout" há a seguinte configuração:
+```
+@await RenderSectionAsync("Scripts", required: false)
+```
+
+Essa configuração permite fazer isso:
+
+```
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+```
+
+Ou seja, posso criar um bloco (section) com o nome que foi configurado (scripts) e carregar partials, scripts, etc.
+
 ## Views de configuração
 
 Diretórios
