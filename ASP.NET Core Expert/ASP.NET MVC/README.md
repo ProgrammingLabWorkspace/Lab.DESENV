@@ -528,3 +528,19 @@ Há uma tabela que é gerada pelas migrations e que gerencia as versões das mig
 Deve-se versionar as migrations
 
 Uma forma de reverter uma migration é retornar para a versão anterior da migration que queremos defazer a ação.
+
+# ASP.NET Identity
+
+- Controle de usuários;
+    - Login;
+- Middleware de segurança que trabalha com Autenticação e Autorização de usuários e possui diversas funcionalidades.
+- Consegue atender a todas as necessidades relacionadas a gerenciamento de acesso de usuários;
+- Arquitetura bastante abstraída, sendo fácil estender e modificar comportamentos.
+
+
+# Desenvolvendo uma aplicação funcional
+
+- Criar um solution vazia;
+- Criar uma pasta src na mesma raiz da soluction;
+
+
