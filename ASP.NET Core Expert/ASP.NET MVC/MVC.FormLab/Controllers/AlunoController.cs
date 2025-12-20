@@ -4,6 +4,7 @@ using MVC.FormLab.Models;
 
 namespace MVC.FormLab.Controllers
 {
+    [Route("meus-alunos")]
     public class AlunoController : Controller
     {
         private AppDbContext DbContext;
@@ -17,10 +18,10 @@ namespace MVC.FormLab.Controllers
         public async Task<IActionResult> Index()
         {
             var alunos = await DbContext.Alunos.ToListAsync();
-
             return View(alunos);
         }
 
+        [Route("detalhes/{id:int}")]
         public async Task<IActionResult> Detalhes(int id)
         {
             var aluno = await ObterAluno(id);
@@ -28,13 +29,13 @@ namespace MVC.FormLab.Controllers
             return View(aluno);
         }
 
-        [HttpGet]
+        [HttpGet("novo")]
         public async Task<IActionResult> Criar()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("novo")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Criar([Bind("Nome,DataNascimento,Email,EmailConfirmacao,Ativo")]Aluno aluno)
         {
@@ -54,7 +55,7 @@ namespace MVC.FormLab.Controllers
             return await DbContext.Alunos.FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        [HttpGet]
+        [HttpGet("editar/{id:int}")]
         public async Task<IActionResult> Editar(int id)
         {
             var aluno = await ObterAluno(id);
@@ -62,7 +63,7 @@ namespace MVC.FormLab.Controllers
             return View(aluno);
         }
 
-        [HttpPost]
+        [HttpPost("editar/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Editar(int id, [Bind("Id,Nome,DataNascimento,Email,Ativo")] Aluno aluno)
         {
