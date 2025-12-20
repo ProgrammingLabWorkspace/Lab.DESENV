@@ -18,6 +18,14 @@ namespace MVC.FormLab.Models
         [Display(Name = "Data Nascimento")]
         public DateTime DataNascimento { get; set; }
 
+        [NotMapped]
+        public string DataNascimentoFormatada { 
+            get
+            {
+                return DataNascimento.ToString("dd/MM/yyyy");
+            } 
+        }
+
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(60, ErrorMessage = "O campo {0} precisa ter no máximo {1} caracteres")]
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "O campo {0} está em formato inválido")]
