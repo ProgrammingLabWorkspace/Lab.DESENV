@@ -591,3 +591,6 @@ e ViewData notação colchetes.
 - Após lidas perdem o conteúdo;
 - Perduram enquanto não forem lidas.
 
+# Autorização e autenticação
+
+Podemos usar o DataAnnotation `Authorize` direto na controller. Para endpoints, podemos colocar exceções, como `AllowAnonymous`.
