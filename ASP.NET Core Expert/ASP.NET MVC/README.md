@@ -594,3 +594,54 @@ e ViewData notação colchetes.
 # Autorização e autenticação
 
 Podemos usar o DataAnnotation `Authorize` direto na controller. Para endpoints, podemos colocar exceções, como `AllowAnonymous`.
+
+
+
+# Criando projeto sem template
+
+- Criar solução em branco;
+- Criar projeto em branco;
+- Em Program.cs, adicionar a linha: `builder.Services.AddControllersWithViews(); // Configuração mais simples que o AddMVC`
+- Ainda em Program.cs, acrescentar: 
+```
+app.UseRouting();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+```
+## Configuração Frontend
+
+- Crie a pasta `wwwroot`;
+    - Dentro de wwwroot, crie: css, js, lib e images
+- Acrescente em `program.cs`:
+```
+    // Permite olhar a pasta wwwroot
+    app.UseStaticFiles();
+```
+
+### Adicionado lib (usando libman)
+
+Clicar com o botão direito em cima de lib, ir em Add e depois vá na opção Add Client-Side Library.
+
+### Criando _Layout
+
+- Dentro de views, crie a pasta Shared;
+- Crie o arquivo `_Layout.cshtml`;
+- Em views, crie a _ViewStart.cshtml e especifique o Layout da seguinte forma;
+```
+@{
+    Layout = "_Layout";
+}
+```
+
+
+### Configurando Tag Helpers
+
+- Crie o arquivo `_ViewImports.cshtml` em `Views` e acrescente o seguinte conteúdo:
+```
+@using SeuNamespace
+@addTagHelpers *, Microsoft.AspNetCore.Mvc.TagHelpers
+```
+    
