@@ -703,3 +703,13 @@ Utilizar o seguinte trecho:
     <link rel="stylesheet" href="~/css/site.min.css" />
 </environment>
 ```
+
+# Tag Helper customizado
+
+- Crie uma classe que estenda de TagHelper;
+```
+ [HtmlTargetElement("*", Attributes = "tipo-botao, route-id")] // Para qual elemento vou usar esse helper. * permite que seja usado em qualquer tag
+ public class BotaoTagHelper : TagHelper
+```
+- Adicione o namespace em _ViewImports.cshtml. Ex: `@addTagHelper *,  Lab.MVC.AppSemTemplate``;
+

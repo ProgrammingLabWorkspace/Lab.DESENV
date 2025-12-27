@@ -1,8 +1,13 @@
-using Microsoft.Extensions.FileProviders;
+ï»¿using Lab.MVC.AppSemTemplate.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.")));
 
-builder.Services.AddControllersWithViews(); // Configuração mais simples que o AddMVC
+builder.Services.AddControllersWithViews(); // ConfiguraÃ§Ã£o mais simples que o AddMVC
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
