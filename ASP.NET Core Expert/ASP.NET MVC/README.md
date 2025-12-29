@@ -398,15 +398,11 @@ Invocando de forma assincrona
 ### View Components
 
 Recurso do ASP.NET + Razor, e é um poderoso aliado para desenvolvimento de componentes independentes das views.
-Não possui a dependência de modelo como as partials possuem.
-
-Possui um processamento próprio (server-side) independente da controller.
-
-Permite componentizar recursos de páginas como uma carrinho de compras, paginação, barra de pesquisa, etc.
-
-Devem ficar dentro uma pasta chamada `ViewComponents`.
-
-Toda ViewComponent é uma classe que herda de ViewComponent:
+- Podemos criar/utilizar um modelo especifico para o ViewComponent. As partials dependem do modelo no qual elas são invocadas.
+- Possui um processamento próprio (server-side) independente da controller.
+- Permite componentizar recursos de páginas como uma carrinho de compras, paginação, barra de pesquisa, etc.
+- Devem ficar dentro uma pasta chamada `ViewComponents`.
+- Toda ViewComponent é uma classe que herda de ViewComponent:
 
 ```
 public class SaudacaoAlunosViewComponent : ViewComponent {
@@ -468,6 +464,7 @@ public class SaudacaoAlunosViewComponent : ViewComponent {
 ```
     <vc:saudacao-aluno idade="18" />
 ```
+
 
 # Entity Framework
 
