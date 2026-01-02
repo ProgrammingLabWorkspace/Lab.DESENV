@@ -1,4 +1,5 @@
 import { Component, input, signal } from '@angular/core';
+import { Child } from './child/child';
 
 @Component({
   selector: 'app-user',
@@ -23,7 +24,7 @@ export class User {
 
 @Component({
   selector: 'app-root',
-  imports: [User],
+  imports: [User, Child],
   //templateUrl: './app.html',
   template: `
   <span>
@@ -52,6 +53,8 @@ export class User {
       There's a secret message for you, hover to reveal 👀
       {{ message }}
     </section>
+
+    <app-child (incrementCountEvent)="onCount($event)" />
   `,
   styles: `
     :host {
@@ -96,5 +99,9 @@ export class App {
 
   changeOccupation(newOccupation:string){
     this.occupation = newOccupation;
+  }
+
+  onCount(count:number){
+    console.log(count);
   }
 }

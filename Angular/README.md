@@ -304,6 +304,45 @@ export class App {}
 
  Podemos colocar o input dentro de colchetes se quisermos passar valores de variáveis.
 
+### Recebendo valores de um componente filho
+
+Para passar para um componente pai o retorno de um componente filho deve-se fazer o seguinte:
+
+- Criar um propriedade que recebe o retorno de `output<T>()`. Dessa forma: `incrementCountEvent = output<number>();`;
+  - Esse exemplo está dizendo que há um evento chamado incrementCountEvent que passa um número como parâmetro;
+
+Estrutura completa:
+
+```
+import { Component, output } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  imports: [],
+  templateUrl: './child.html',
+  styleUrl: './child.css',
+})
+export class Child {
+  incrementCountEvent = output<number>();
+  count = 0;
+
+  onClick(){
+    this.count ++;
+    this.incrementCountEvent.emit(this.count); //Passa o valor do contador como parâmetro.
+  }
+}
+```
+Na classe pai basta fazer a seguinte invocação:
+
+```
+<app-child (incrementCountEvent)="onCount($event)" />
+```
+
+- `onCount` é uma função criada no componente pai e que recebe um número como parâmetro;
+- Todas as vezes que o `emit` de `incrementCountEvent` for invocado, `onCount` será chamado e receberá o valor de `count` como parâmetro;
+
+
+
 ## Módulo
 
 Comando: `ng g module Funcionalidade`
@@ -333,4 +372,4 @@ export class FuncionalidadeModule { }
 
 Comando: `ng g service Servico`
 
-**Parei em: https://angular.dev/tutorials/learn-angular/4-control-flow-if**
+**Parei em: https://angular.dev/tutorials/learn-angular/10-deferrable-views**
