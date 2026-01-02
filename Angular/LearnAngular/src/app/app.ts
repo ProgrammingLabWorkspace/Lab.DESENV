@@ -30,6 +30,12 @@ export class User {
   </span>
   <br />
   <app-user />
+
+  <ul>
+  @for(os of operatingSystens; track os.id){
+    <li>{{os.name}}</li>
+  }
+  </ul>
   `,
   styles: `
     :host {
@@ -39,6 +45,20 @@ export class User {
 })
 export class App {
   protected readonly title = signal('LearnAngular');
-  city:string = "São Paulo";
-  currentDate:string = new Date().toDateString();
+  city: string = "São Paulo";
+  currentDate: string = new Date().toDateString();
+  operatingSystens: Array<{ id: string, name: string }> = [
+    {
+      id: "win",
+      name: "Windows"
+    },
+    {
+      id: "osx",
+      name: "MacOS"
+    },
+    {
+      id: "linux",
+      name: "Linux"
+    },  
+  ]
 }
