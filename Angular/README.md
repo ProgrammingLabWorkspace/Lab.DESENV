@@ -274,6 +274,36 @@ Agora o `contentEditable` define o seu valor conforme a variável `isEditable`.
 
 Coloque entre parênteses o evento. Exemplo: `(click)`. **Se atentar que o nome dos eventos são um pouco diferentes do usados diretamente no HTML.**
 
+### Passando parâmetros para componentes (input)
+
+No Angular, a passagem de parâmetros para componentes é feito usando input (similar ao props).
+
+Exemplo:
+
+Declarando
+```
+@Component({
+  selector: 'app-user',
+  template: ` 
+    Occupation: {{occupation()}}  
+  `,
+})
+class User {  
+  occupation = input<string>();
+}
+```
+
+Passando parâmetro:
+
+`@Component({  
+  ...  
+  template: `<app-user occupation="Angular Developer"></app-user>`
+})
+export class App {}
+ `
+
+ Podemos colocar o input dentro de colchetes se quisermos passar valores de variáveis.
+
 ## Módulo
 
 Comando: `ng g module Funcionalidade`

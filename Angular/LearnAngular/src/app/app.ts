@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-user',
   template: ` 
     @if(isLoggedIn){
       <p>
-        Username: {{ username }}
-      </p>
+        Username: {{ username }} - Occupation: {{occupation()}}
+      </p>      
     } @else {
       <p>
         Welcome back, friend!
@@ -18,6 +18,7 @@ import { Component, signal } from '@angular/core';
 export class User {
   username = 'Private Ryan';
   isLoggedIn = true;
+  occupation = input<string>();
 }
 
 @Component({
@@ -29,7 +30,11 @@ export class User {
     Hello {{city}}, {{currentDate}}
   </span>
   <br />
-  <app-user />
+  <app-user [occupation]="occupation" />
+
+  <button (click)="changeOccupation('Angular Developer')">
+      Change occupation to Angular Developer
+  </button>
 
   <ul>
   @for(os of operatingSystens; track os.id){
@@ -75,6 +80,7 @@ export class App {
   isDivEditable: boolean = false;
 
   message:string = "";
+  occupation:string ="Soldier";
 
   greet() {
     alert("Hello, there!");
@@ -86,5 +92,9 @@ export class App {
 
   hideSecretMessage(){
     this.message = "";
+  }
+
+  changeOccupation(newOccupation:string){
+    this.occupation = newOccupation;
   }
 }
