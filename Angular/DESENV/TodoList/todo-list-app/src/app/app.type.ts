@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 class TodoItem {
 
-    constructor(title:string, description:string, id?:string){                
+    constructor(title:string, description?:string | undefined | null, id?:string){                
         if(!id){
             id = uuidv4();
         }                   
@@ -30,11 +30,11 @@ class TodoItem {
         this._title = v;
     }
     
-    private _description : string;
-    public get description() : string {
+    private _description? :  string | undefined | null;
+    public get description() : string | undefined | null {
         return this._description;
     }
-    public set description(v : string) {
+    public set description(v : string | undefined | null) {
         this._description = v;
     }
     
