@@ -2,10 +2,11 @@ import { Component, input, signal } from '@angular/core';
 import { Child } from './child/child';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-   imports: [Child],  
+  imports: [Child],
   template: `
    <span>
     Hello {{city}}, {{currentDate}}
@@ -54,7 +55,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `
 })
 export class Home {
-protected readonly title = signal('LearnAngular');
+  protected readonly title = signal('LearnAngular');
   city: string = "São Paulo";
   currentDate: string = new Date().toDateString();
   operatingSystens: Array<{ id: string, name: string }> = [
@@ -73,18 +74,18 @@ protected readonly title = signal('LearnAngular');
   ]
   isDivEditable: boolean = false;
 
-  message:string = "";
+  message: string = "";
   //occupation:string ="Soldier";
 
   greet() {
     alert("Hello, there!");
   }
 
-  showSecretMessage(){
+  showSecretMessage() {
     this.message = "oloko";
   }
 
-  hideSecretMessage(){
+  hideSecretMessage() {
     this.message = "";
   }
 
@@ -92,20 +93,26 @@ protected readonly title = signal('LearnAngular');
   //   this.occupation = newOccupation;
   // }
 
-  onCount(count:number){
+  onCount(count: number) {
     console.log(count);
   }
 }
 
 @Component({
   selector: 'app-user',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, FormsModule],
   template: ` 
     @if(isLoggedIn){
-      <img ngSrc="https://ew.com/thmb/hXirYe4etmhfJbmU5dL9d0tXF3c=/2000x0/filters:no_upscale():max_bytes(150000):strip_icc()/saving-private-ryan-matt-damon-060524-1-27570d4206364916891172e478add38c.jpg" alt="Angular logo" width="250" height="250" />
+      <img ngSrc="https://ew.com/thmb/hXirYe4etmhfJbmU5dL9d0tXF3c=/2000x0/filters:no_upscale():max_bytes(150000):strip_icc()/saving-private-ryan-matt-damon-060524-1-27570d4206364916891172e478add38c.jpg" alt="{{username}}" width="250" height="250" />
       <p>
         Username: {{ username }} - Occupation: {{occupation()}}
-      </p>      
+      </p>     
+      <p>{{ username }}'s favorite framework: {{ favoriteFramework }}</p>
+      
+      <label for="framework">
+        Favorite Framework:
+        <input id="framework" type="text"  [(ngModel)]="favoriteFramework"/>
+    </label>
     } @else {
       <p>
         Welcome back, friend!
@@ -118,6 +125,7 @@ export class User {
   username = 'Private Ryan';
   isLoggedIn = true;
   occupation = input<string>();
+  favoriteFramework: string = "Angular";
 }
 
 @Component({
@@ -133,5 +141,5 @@ export class User {
   `,
 })
 export class App {
-  
+
 }
