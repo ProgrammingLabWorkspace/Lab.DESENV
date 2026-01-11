@@ -2,11 +2,12 @@ import { Component, input, signal } from '@angular/core';
 import { Child } from './child/child';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [Child],
+  imports: [Child, ReactiveFormsModule],
   template: `
    <span>
     Hello {{city}}, {{currentDate}}
@@ -17,6 +18,20 @@ import { FormsModule } from '@angular/forms';
   <!-- <button (click)="changeOccupation('Angular Developer')">
       Change occupation to Angular Developer
   </button> -->
+
+   <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">      
+      <label>Nome        
+        <input type="text" formControlName="name" />    
+      </label>      
+      <label>Email        
+        <input type="email" formControlName="email" />      
+      </label>      
+      <button type="submit">Submit</button>    
+  </form>
+
+  <h2>Profile Form</h2>
+  <p>Name: {{ profileForm.value.name }}</p>
+  <p>Email: {{ profileForm.value.email }}</p>
 
   <ul>
   @for(os of operatingSystens; track os.id){
@@ -55,6 +70,15 @@ import { FormsModule } from '@angular/forms';
   `
 })
 export class Home {
+  profileForm = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+  });
+
+  handleSubmit() {
+    alert(this.profileForm.value.name + ' | ' + this.profileForm.value.email);
+  }
+
   protected readonly title = signal('LearnAngular');
   city: string = "São Paulo";
   currentDate: string = new Date().toDateString();

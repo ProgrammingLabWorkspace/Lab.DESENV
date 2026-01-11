@@ -511,6 +511,67 @@ export const routes: Routes = [
 ];
 ```
 
+# Formulários
+
+Angular trabalha com o formato `template-driven` e `reativo`.
+
+
+## template-driven
+É necessário importar o módulo `FormsModule` e acrescenta-lo no componente (no imports do decorator da classe):
+`import {FormsModule} from '@angular/forms';` 
+
+```
+<label for="framework">
+    Favorite Framework:
+    <input id="framework" type="text"  [(ngModel)]="favoriteFramework"/>
+</label>
+```
+`favoriteFramework` deve ser um atributo criado dentro da classe do template. Todo valor digitado no campo será armazenado no atributo `favoriteFramework`.
+
+`[()]` -> essa sintaxe é usada para binding de eventos e dados.
+
+## Reativo
+É necessário importar o módulo `ReactiveFormsModule` e acrescenta-lo no componente (no imports do decorator da classe):
+`import { ReactiveFormsModule } from '@angular/forms';`
+
+O modelo reativo trabalha com `FormGroup` que agrupa `FormControls`. Podemos dizer que se trata de um agrupamento de controles (inputs).
+
+```
+import {ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+...
+export class App {
+  profileForm = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+  });
+}
+```
+
+Cada `FormGroup` deve estar vinculado a um formulário através da propriedade `[formControl]`.
+`<form [formGroup]="profileForm">`
+
+Cada campo no formulário deve apontar para um atributo do `FormGroup`, e isso é feito através da propriedade `formControlName`.
+`<input type="text" formControlName="name" />`
+
+Os valores são acessados da seguinte maneira:
+`<p>Name: {{ profileForm.value.name }}</p>`.
+
+Para capturar o evento de submissão, basta utilizar a propriedade `(ngSubmit)` na tag `<form>`
+```
+<form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
+```
+
+```
+handleSubmit() {
+  alert(
+    this.profileForm.value.name + ' | ' + this.profileForm.value.email
+  );
+}
+```
+
+
+
+
 ## Services
 
 Comando: `ng g service Servico`
