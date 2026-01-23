@@ -808,3 +808,9 @@ Utilizar o seguinte trecho:
 - Para que um serviço seja injetado no código é necessário registrá-lo ao contêiner de DI.
 `builder.Services.AddScope<ApplicationDbContext>`
 - Para usar o serviço registrado é de costume injetar este serviço via construtor;
+
+## Configurando DI
+
+A configuração padrão do DI é feita em Programa.cs: `builder.Services.AddScoped<Interface, Classe>();`
+Interface - contrato
+Classe - classe que implementa a Interface
