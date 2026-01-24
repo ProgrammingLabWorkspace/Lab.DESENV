@@ -814,3 +814,17 @@ Utilizar o seguinte trecho:
 A configuração padrão do DI é feita em Programa.cs: `builder.Services.AddScoped<Interface, Classe>();`
 Interface - contrato
 Classe - classe que implementa a Interface
+
+## Ciclo de vida do DI
+
+- Transiente (transient)
+    - Obtém uma nova instância do objeto a cada solicitação;
+    - Todas as vezes que preciso pegar uma instância, o .NET gera uma nova;
+- Scoped
+    - Reutiliza a mesma instância do objeto durante todo o request (web);
+- Singleton
+    - Utiliza a mesma instância para toda aplicação;
+        - Cuidado: usar para ações que não envolvem estado. Ex: serviço de envio de email.
+        - Há o risco de dois ou mais usuários mexerem em uma mesma instância de um objeto;
+    - O apontamento da instância só muda quando a aplicação é reiniciada;
+
