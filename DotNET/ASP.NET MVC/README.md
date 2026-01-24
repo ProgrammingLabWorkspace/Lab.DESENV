@@ -865,3 +865,22 @@ using(var serviceScope = app.Services.CreateScope()){
     var service = services.GetRequiredService<IMeuServico>();
 }
 ```
+
+# Segurança
+
+- OWASP -> organização que cataloga brechas de segurança;
+
+## Cross-Site Request Forgery
+
+Mais informações sobre CSRF podem ser encotrados no arquivo sobre [CSRF](../../Segurança/CSRF.md)
+
+### Configuração de token Anti-CSRF global no .NET
+
+```
+builder.Services.AddControllersWithViews(opts => {
+    opts.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+});
+```
+### Configuração de token CSRF em endpoints no .NET
+
+Basta adicionar o annotation `[ValidateAntiForgeryToken]` em cima do endpoint.
