@@ -828,3 +828,18 @@ Classe - classe que implementa a Interface
         - Há o risco de dois ou mais usuários mexerem em uma mesma instância de um objeto;
     - O apontamento da instância só muda quando a aplicação é reiniciada;
 
+## Outras maneiras de fazer DI
+
+**De preferência para fazer DI no construtor**
+
+- Utilizando annotation `FromServices` (não é aconselhável):
+    ```
+    [Route("Teste")]
+    public string Teste([FromServices] MeuServico servico){
+        ...
+    }
+    ```
+- Utilizando DI na View (não é aconselhável)
+    ```
+        @inject MeuServico servico
+    ```
