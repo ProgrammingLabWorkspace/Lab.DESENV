@@ -884,3 +884,4 @@ builder.Services.AddControllersWithViews(opts => {
 ### Configuração de token CSRF em endpoints no .NET
 
 Basta adicionar o annotation `[ValidateAntiForgeryToken]` em cima do endpoint.
+
