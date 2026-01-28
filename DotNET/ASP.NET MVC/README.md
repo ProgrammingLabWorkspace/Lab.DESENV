@@ -885,3 +885,11 @@ builder.Services.AddControllersWithViews(opts => {
 
 Basta adicionar o annotation `[ValidateAntiForgeryToken]` em cima do endpoint.
 
+## HTTPS e HSTS
+
+HSTS significa HTTP strict transport security.
+
+O `app.UseHsts()` alocada um header que obriga o uso do HTTPs no domínio. Isso faz com que o browser seja obrigado a usar HTTPs. O browser nem tenta bater na rota com HTTP.
+![alt text](AddHsts.png)
+
+O `app.UseHttpsRedirection()` redireciona a rota para HTTPs se tentar acessar via HTTP
