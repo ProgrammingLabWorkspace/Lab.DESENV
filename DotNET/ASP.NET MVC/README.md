@@ -893,3 +893,40 @@ O `app.UseHsts()` alocada um header que obriga o uso do HTTPs no domínio. Isso 
 ![alt text](AddHsts.png)
 
 O `app.UseHttpsRedirection()` redireciona a rota para HTTPs se tentar acessar via HTTP
+
+## Configurando o ASP.NET Identity
+
+Pacotes necessários:
+
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore
+- Microsoft.AspNetCore.Identity.UI
+
+Usando na prática
+
+`public class AppDbContext : IdentityDbContext {}`
+O context deve herdar de `IdentityDbContext`.
+
+Configurando
+
+```
+builder.Services.AddDefaultIdentity<IdentityUser>(options => {
+    options.SignIn.RequireConfirmedAccount = true;
+}).AddEntityFrameworkStores<AppDbContext>();
+...
+
+app.UseAuthorization();
+```
+
+Será necessário rodar o `Add-Migration` e depois o `Update-Database`.
+
+Para acessar as páginas do Identity é necessário incluir `app.MapRazorPages();`.
+
+Da para sobrescrever algumas funções do Identity, como o layout, criando a seguinte estrutura:
+`Area > Identity > Pages > _ViewStart.cshtml`.
+
+O Identity possui Scaffolding das áreas, incluindo a de login. Com isso, é possível sobrescrever as views.
+
+## Autenticação
+
+Uma vez que o Identity foi configurado, é possível obter informações do usuário logado através do HttpContext:
+`HttpContext.Identity.User`
