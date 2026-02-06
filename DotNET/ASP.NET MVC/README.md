@@ -1091,7 +1091,10 @@ public class ControlAllPanelController : Controller
 
 ### Claims
 
-Claims são como ações.
+Claims são declarações ou informações sobre a identidade de um usuário, expressa como pares de chave-valor (ex: Email: fulano@email.com, DataNascimento: 01/01/1990).
+Em uma estrutura de autorização baseada em claims, uma ação é liberada com base nas características de um usuário e não apenas em papéis (roles).
+
+As claims carregam os atributos do usuário autenticado e ajudam identificá-lo.
 
 Configurando uma claim
 
@@ -1102,8 +1105,13 @@ builder.Services.AddAuthorization(opt => {
     });
 });
 ```
+
+**claim vira motivo de “não autorizado” quando ela é usada como requisito de policy**
+
 # Referências
 
 - https://learn.microsoft.com/en-us/aspnet/core/security/authorization/simple?view=aspnetcore-10.0
 - https://learn.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-10.0
 - https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles?view=aspnetcore-10.0
+- https://pt.stackoverflow.com/questions/16316/asp-net-identity-e-claims
+- https://learn.microsoft.com/en-us/archive/blogs/alikl/windows-identity-foundation-wif-by-example-part-iii-how-to-implement-claims-based-authorization-for-asp-net-application
